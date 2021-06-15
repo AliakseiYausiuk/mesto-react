@@ -10,6 +10,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  // const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -24,6 +25,11 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+  // const handleDeleteCardClick = () => {
+  //   setIsDeleteCardPopupOpen(true);
+  // }
+  
+
   const formEditProfile = () => {
     return '<input id="nameInput" type="text" class="pop-up__text" name="content-name" value="" placeholder="Ваше имя" minlength="2" maxlength="40"  required/> <span id="nameInput-error" class="pop-up__span-error"></span> <input id="jobInput type="text" class="pop-up__text" name="content-job" value="" placeholder="О себе" minlength="2 maxlength="200" required/> <span id="jobInput-error" class="pop-up__span-error"></span>'
   }
@@ -35,13 +41,13 @@ function App() {
   return (
     <>
      <Header/>
-     <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick}/>
+     <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} />
      <PopupWithForm title='Редактировать профиль' name='profile-popup' textBtn='Сохранить' isOpen={isEditProfilePopupOpen} children={formEditProfile}/>
      <PopupWithForm title='Новое место' name='pop-up-supplement-foto' textBtn='Создать' isOpen={isAddPlacePopupOpen}/>
      <PopupWithForm title='Обновить аватар' name='pop-up-upgred-avatar' textBtn='Да' isOpen={isEditAvatarPopupOpen}/>
      <Footer/>
 
-     {/* <PopupWithForm title='Вы уверены?' name={'profile-popup'} textBtn='Да'/> */}
+     {/* <PopupWithForm title='Вы уверены?' name='pop-up-delete-foto' textBtn='Да' isOpen={isDeleteCardPopupOpen}/> */}
 
   {/* <div id='profile-popup' class="pop-up" tabindex="0">
     <div class="pop-up__container pop-up__container_background">
