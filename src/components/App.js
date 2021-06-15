@@ -12,28 +12,33 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   // const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
 
+  // изменение сотояния при клике (открывает попап)
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
   }
   
 
+  // изменение сотояния при клике (открывает попап)
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
   }
 
+  // изменение сотояния при клике (открывает попап)
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
   }
 
+  // // изменение сотояния при клике (закрывает попапы)
+  const closeAllPopups = () => {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+  }
+  
+
   // const handleDeleteCardClick = () => {
   //   setIsDeleteCardPopupOpen(true);
   // }
-  
-
-  const formEditProfile = () => {
-    return '<input id="nameInput" type="text" class="pop-up__text" name="content-name" value="" placeholder="Ваше имя" minlength="2" maxlength="40"  required/> <span id="nameInput-error" class="pop-up__span-error"></span> <input id="jobInput type="text" class="pop-up__text" name="content-job" value="" placeholder="О себе" minlength="2 maxlength="200" required/> <span id="jobInput-error" class="pop-up__span-error"></span>'
-  }
-  
   
   
   
@@ -42,86 +47,26 @@ function App() {
     <>
      <Header/>
      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} />
-     <PopupWithForm title='Редактировать профиль' name='profile-popup' textBtn='Сохранить' isOpen={isEditProfilePopupOpen} children={formEditProfile}/>
-     <PopupWithForm title='Новое место' name='pop-up-supplement-foto' textBtn='Создать' isOpen={isAddPlacePopupOpen}/>
-     <PopupWithForm title='Обновить аватар' name='pop-up-upgred-avatar' textBtn='Да' isOpen={isEditAvatarPopupOpen}/>
+     <PopupWithForm title='Редактировать профиль' name='profile-popup' textBtn='Сохранить' isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
+       <input id='nameInput' type="text" className="pop-up__text" name="content-name" defaultValue="" placeholder="Ваше имя" minLength="2" maxLength="40"  required/>
+       <span id="nameInput-error" className="pop-up__span-error"></span>
+       <input id='jobInput' type="text" className="pop-up__text" name="content-job" defaultValue="" placeholder="О себе" minLength="2" maxLength="200" required/>
+       <span id="jobInput-error" className="pop-up__span-error"></span>
+     </PopupWithForm>
+     <PopupWithForm title='Новое место' name='pop-up-supplement-foto' textBtn='Создать' isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
+       <input id='NameFoto' type="text" className="pop-up__text" name="content-name-foto" defaultValue="" placeholder='Название' minLength='2' maxLength="30" required/>
+       <span id="NameFoto-error" className="pop-up__span-error"></span>
+       <input id='linkFoto' type="url" className="pop-up__text" name="content-foto" defaultValue="" placeholder='Ссылка на картинку' required/>
+       <span id="linkFoto-error" className="pop-up__span-error"></span>
+     </PopupWithForm>
+     <PopupWithForm title='Обновить аватар' name='pop-up-upgred-avatar' textBtn='Да' isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
+       <input id="linkFotoAvatar" type="url" className="pop-up__text" name="contentFotoAvatar" defaultValue="" placeholder='Ссылка на картинку' required/>
+       <span id="linkFotoAvatar-error" className="pop-up__span-error"></span>
+     </PopupWithForm>
      <Footer/>
 
      {/* <PopupWithForm title='Вы уверены?' name='pop-up-delete-foto' textBtn='Да' isOpen={isDeleteCardPopupOpen}/> */}
 
-  {/* <div id='profile-popup' class="pop-up" tabindex="0">
-    <div class="pop-up__container pop-up__container_background">
-      <button class="pop-up__btn-close" type="button" aria-label="Close"></button>
-      <h2 class="pop-up__title">
-        Редактировать профиль
-      </h2>
-      <form id="edit-form" class="pop-up__form" action="#" name="popup-form" novalidate>
-        <input id='nameInput' type="text" class="pop-up__text" name="content-name" value="" placeholder="Ваше имя" minlength='2' maxlength="40"  required/>
-        <span id="nameInput-error" class="pop-up__span-error"></span>
-        <input id='jobInput' type="text" class="pop-up__text" name="content-job" value="" placeholder="О себе" minlength='2' maxlength="200" required/>
-        <span id="jobInput-error" class="pop-up__span-error"></span>
-        <button class="pop-up__btn-save" type="submit">
-          Сохранить
-        </button>
-      </form>
-    </div>
-  </div>
-  <div id="pop-up-supplement-foto" class="pop-up" tabindex="0">
-    <div class="pop-up__container pop-up__container_background">
-      <button id="pop-up-supplement-foto__btn-close" class="pop-up__btn-close" type="button" aria-label="Close"></button>
-      <h2 class="pop-up__title">
-        Новое место
-      </h2>
-      <form id="pop-up-supplement-foto__form" class="pop-up__form" action="#" name="popup-form" novalidate>
-        <input id='NameFoto' type="text" class="pop-up__text" name="content-name-foto" value="" placeholder='Название' minlength='2' maxlength="30" required/>
-        <span id="NameFoto-error" class="pop-up__span-error"></span>
-        <input id='linkFoto' type="url" class="pop-up__text" name="content-foto" value="" placeholder='Ссылка на картинку' required/>
-        <span id="linkFoto-error" class="pop-up__span-error"></span>
-        <button class="pop-up__btn-save" type="submit" >
-          Создать
-        </button>
-      </form>
-    </div>
-  </div>
-  <div id="pop-up-foto" class="pop-up" tabindex="0">
-    <div class="pop-up__foto-container">
-      <button id="pop-up-foto__btn-close" class="pop-up__btn-close" type="button" aria-label="Close"></button>
-      <figure class="pop-up__block-figure">
-        <img class="pop-up__img" src="<%=require('./images/foto_4.jpg')%>" alt="Вид на горы через деревья"/>
-        <figcaption class="pop-up__text-img">
-          Карачаево-Ч...
-        </figcaption>
-      </figure>
-    </div>
-  </div>
-  <div id="pop-up-delete-foto" class="pop-up">
-    <div class="pop-up__container pop-up__container_background">
-      <button class="pop-up__btn-close" type="button" aria-label="Close"></button>
-      <h2 class="pop-up__title">
-        Вы уверены?
-      </h2>
-      <form id="pop-upDeleteFoto" class="pop-up__form" action="#" name="popup-form" novalidate>
-        <button class="pop-up__btn-save pop-up__btn-save_size" type="submit" >
-          Да
-        </button>
-      </form>
-    </div>
-  </div>
-  <div id="pop-up-upgred-avatar" class="pop-up">
-    <div class="pop-up__container pop-up__container_background">
-      <button class="pop-up__btn-close" type="button" aria-label="Close"></button>
-      <h2 class="pop-up__title">
-        Обновить аватар
-      </h2>
-      <form id="pop-upUpgredAvatar" class="pop-up__form" action="#" name="popup-form" novalidate>
-        <input id="linkFotoAvatar" type="url" class="pop-up__text" name="contentFotoAvatar" value="" placeholder='Ссылка на картинку' required/>
-        <span id="linkFotoAvatar-error" class="pop-up__span-error"></span>
-        <button class="pop-up__btn-save" type="submit" >
-          Да
-        </button>
-      </form>
-    </div>
-  </div> */}
     </>
   );
 }
