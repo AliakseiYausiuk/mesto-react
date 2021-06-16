@@ -3,6 +3,7 @@ import Header from './header/Header.js';
 import Main from './main/Main.js';
 import Footer from './footer/Footer.js';
 import PopupWithForm from './popupWithForm/PopupWithForm.js';
+import ImagePopup from '../components/imagePopup/ImagePopup.js';
 
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState(false);
   // const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
 
   // изменение сотояния при клике (открывает попап)
@@ -33,6 +35,11 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard(false);
+  }
+  
+  const handleCardClick = () => {
+    setSelectedCard(true);
   }
   
 
@@ -46,7 +53,7 @@ function App() {
   return (
     <>
      <Header/>
-     <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} />
+     <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handleCardClick} />
      <PopupWithForm title='Редактировать профиль' name='profile-popup' textBtn='Сохранить' isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
        <input id='nameInput' type="text" className="pop-up__text" name="content-name" defaultValue="" placeholder="Ваше имя" minLength="2" maxLength="40"  required/>
        <span id="nameInput-error" className="pop-up__span-error"></span>
@@ -63,6 +70,7 @@ function App() {
        <input id="linkFotoAvatar" type="url" className="pop-up__text" name="contentFotoAvatar" defaultValue="" placeholder='Ссылка на картинку' required/>
        <span id="linkFotoAvatar-error" className="pop-up__span-error"></span>
      </PopupWithForm>
+     <ImagePopup card={selectedCard} onClose={closeAllPopups}></ImagePopup>
      <Footer/>
 
      {/* <PopupWithForm title='Вы уверены?' name='pop-up-delete-foto' textBtn='Да' isOpen={isDeleteCardPopupOpen}/> */}

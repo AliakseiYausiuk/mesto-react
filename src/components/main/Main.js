@@ -13,30 +13,38 @@ const Main = (props) => {
   const [cards, setCards] = useState([]);
 
   // получаем с сервера данные пользователя
-  const handlerRequestUser = () => {
-    api.getUserData()
-    .then(res => {
-      setUserName(res.name);
-      setUserDescription(res.about);
-      setUserAvatar(res.avatar);
-    })
-    .catch(err => console.log(err));
-  }
+  // const handlerRequestUser = () => {
+  //   api.getUserData()
+  //   .then(res => {
+  //     setUserName(res.name);
+  //     setUserDescription(res.about);
+  //     setUserAvatar(res.avatar);
+  //   })
+  //   .catch(err => console.log(err));
+  // }
 
   // получаем с сервера карточки 
-  const handlerReequestCards = () => {
-    api.getInitialCards()
-    .then(res => {
-      setCards(res)
-    })
-    .catch(err => console.log(err))
-  }
+  // const handlerReequestCards = () => {
+  //   api.getInitialCards()
+  //   .then(res => {
+  //     setCards(res)
+  //   })
+  //   .catch(err => console.log(err))
+  // }
   
   
 
   useEffect(() => {
-    handlerRequestUser();
-    handlerReequestCards();
+    // handlerRequestUser();
+    // handlerReequestCards();
+    api.getFullInfo()
+    .then(([arrCards, userData]) => {
+      setUserName(userData.name);
+      setUserDescription(userData.about);
+      setUserAvatar(userData.avatar);
+      setCards(arrCards);
+    })
+    .catch(err => console.log(err));
   }, []);
 
     return (
@@ -62,8 +70,8 @@ const Main = (props) => {
         </section>
       <section className="elements">
       <ul className="cards">
-        {/* <Card card={cards}/> */}
-        {cards.map(el => {
+        {cards.map(el => <Card card={el} onCardClick={props.onCardClick}/>)}
+        {/* {cards.map(el => {
           return (
             <li key={el.id} id={el.id} className="cards__card">
               <button className="cards__btn-delete" type="button" aria-label="btn-delete"></button>
@@ -83,7 +91,7 @@ const Main = (props) => {
               </figure>
             </li>
           )
-        })}
+        })} */}
       </ul>
       </section>
       </main>
