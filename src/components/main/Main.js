@@ -71,27 +71,6 @@ const Main = (props) => {
       <section className="elements">
       <ul className="cards">
         {cards.map(el => <Card card={el} onCardClick={props.onCardClick}/>)}
-        {/* {cards.map(el => {
-          return (
-            <li key={el.id} id={el.id} className="cards__card">
-              <button className="cards__btn-delete" type="button" aria-label="btn-delete"></button>
-              <figure className="cards__list">
-              <img className="cards__foto" src={el.link} alt={el.name} />
-              <figcaption className="cards__text">
-                {el.name}
-              </figcaption>
-              <ul className="cards__item">
-                <li>
-                  <button className="cards__like" type="button" aria-label="btn-like"></button>
-                </li>
-                <li>
-                  <span className="cards__like-number"></span>
-                </li>
-              </ul>
-              </figure>
-            </li>
-          )
-        })} */}
       </ul>
       </section>
       </main>
