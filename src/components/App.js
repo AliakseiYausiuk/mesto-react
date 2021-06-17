@@ -11,7 +11,12 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState({});
+
+
+  // const [selectedCard, setSelectedCard] = useState({});
+  const [selectedCard, setSelectedCard] = useState(null);
+
+
   // const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
 
   // изменение сотояния при клике (открывает попап)
@@ -35,7 +40,10 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setSelectedCard(false);
+
+
+    // setSelectedCard(false);
+    setSelectedCard(null);
   }
   
   const handleCardClick = (card) => {
