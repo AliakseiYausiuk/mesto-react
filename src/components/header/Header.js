@@ -1,5 +1,3 @@
-import '../../blocks/header/header.css';
-import '../../blocks/logo/logo.css';
 import logo from '../../images/logo.svg';
 
 
