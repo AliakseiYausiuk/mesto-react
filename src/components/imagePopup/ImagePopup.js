@@ -7,9 +7,9 @@ const ImagePopup = (props) => {
         <div className="pop-up__foto-container">
           <button id="pop-up-foto__btn-close" className="pop-up__btn-close" type="button" aria-label="Close" onClick={props.onClose}></button>
           <figure className="pop-up__block-figure">
-            <img className="pop-up__img" src={props.card.link} alt="Вид на горы через деревья"/>
+            <img className="pop-up__img" src={props.card ? props.card.link : ''} alt="Вид на горы через деревья"/>
             <figcaption className="pop-up__text-img">
-              {props.card.name}
+              {props.card ? props.card.name : ''}
             </figcaption>
           </figure>
         </div>
