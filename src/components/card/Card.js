@@ -7,7 +7,7 @@ const Card = (props) => {
       }  
 
     return (
-        <li key={props.keyId} id={props.card.id} className="cards__card">
+        <li id={props.card.id} className="cards__card">
             <button className="cards__btn-delete" type="button" aria-label="btn-delete"></button>
             <figure className="cards__list">
             <img className="cards__foto" src={props.card.link} alt={props.card.name} onClick={handleClick}/>
@@ -15,10 +15,10 @@ const Card = (props) => {
                 {props.card.name}
             </figcaption>
             <ul className="cards__item">
-                <li key={props.keyID}>
+                <li>
                   <button className="cards__like" type="button" aria-label="btn-like"></button>
                 </li>
-                <li key={props.keyID}>
+                <li>
                     <span className="cards__like-number"></span>
                 </li>
             </ul>

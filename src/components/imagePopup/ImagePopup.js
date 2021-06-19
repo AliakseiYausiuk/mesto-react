@@ -1,7 +1,6 @@
 
 
 const ImagePopup = (props) => {
-  console.log(props);
     return (
       <div id="pop-up-foto" className={props.card ? "pop-up pop-up_active" : "pop-up"}>
         <div className="pop-up__foto-container">
