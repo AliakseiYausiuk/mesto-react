@@ -41,6 +41,7 @@
 @import url('./blocks/cards/__btn-delete/cards__btn-delete.css');
 @import url('./blocks/cards/__like-number/cards__like-number.css');
 @import url('./blocks/cards/__item/cards__item.css');
+@import url('./blocks/cards/__btn-delete/_active/cards__btn-delete_active.css');
 
 /* footer */
 @import url('./blocks/footer/footer.css');

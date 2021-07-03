@@ -1,12 +1,30 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from './header/Header.js';
 import Main from './main/Main.js';
 import Footer from './footer/Footer.js';
 import PopupWithForm from './popupWithForm/PopupWithForm.js';
 import ImagePopup from '../components/imagePopup/ImagePopup.js';
+import api from '../utils/Api.js';
+import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
+import {CardsContext} from '../contexts/CardsContext.js';
+import EditProfilePopup from '../components/editProfilePopup/EditProfilePopup.js';
 
 
 function App() {
+
+  const [currentUser, setCurrentUser] = useState('');
+
+  const [cards, setCard] = useState([]);
+
+
+  useEffect(() => {
+    api.getFullInfo()
+    .then(([arrCards, userData]) => {
+      setCurrentUser(userData);
+      setCard(arrCards);
+    })
+    .catch(err => console.log(err));
+  }, []);
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
@@ -50,24 +68,22 @@ function App() {
     setSelectedCard(card);
   }
   
-
-  // const handleDeleteCardClick = () => {
-  //   setIsDeleteCardPopupOpen(true);
-  // }
-  
-  
+  const handleUpdateUser = (data) => {
+    api.userEdit(data)
+    .then(res => {
+      setCurrentUser(data);
+      closeAllPopups();
+    })
+  }
   
 
   return (
-    <>
+    <CurrentUserContext.Provider value={currentUser}>
+     <CardsContext.Provider value={cards}>
      <Header/>
      <Main onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handleCardClick} />
-     <PopupWithForm title='Редактировать профиль' name='profile-popup' textBtn='Сохранить' isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
-       <input id='nameInput' type="text" className="pop-up__text" name="content-name" defaultValue="" placeholder="Ваше имя" minLength="2" maxLength="40"  required/>
-       <span id="nameInput-error" className="pop-up__span-error"></span>
-       <input id='jobInput' type="text" className="pop-up__text" name="content-job" defaultValue="" placeholder="О себе" minLength="2" maxLength="200" required/>
-       <span id="jobInput-error" className="pop-up__span-error"></span>
-     </PopupWithForm>
+     <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
+     
      <PopupWithForm title='Новое место' name='pop-up-supplement-foto' textBtn='Создать' isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
        <input id='NameFoto' type="text" className="pop-up__text" name="content-name-foto" defaultValue="" placeholder='Название' minLength='2' maxLength="30" required/>
        <span id="NameFoto-error" className="pop-up__span-error"></span>
@@ -82,8 +98,8 @@ function App() {
      <Footer/>
 
      {/* <PopupWithForm title='Вы уверены?' name='pop-up-delete-foto' textBtn='Да' isOpen={isDeleteCardPopupOpen}/> */}
-
-    </>
+     </CardsContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 
