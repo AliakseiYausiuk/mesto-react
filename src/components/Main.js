@@ -1,11 +1,11 @@
 import React, {useState, useEffect, useContext} from 'react';
 // import avatar from '../../images/avatar.jpg';
-import vector from '../../images/Vector.svg';
-import plus from '../../images/plus.svg';
-import Card from '../card/Card.js';
-import api from '../../utils/Api.js';
-import {CurrentUserContext} from '../../contexts/CurrentUserContext.js';
-import {CardsContext} from '../../contexts/CardsContext.js';
+import vector from '../images/Vector.svg';
+import plus from '../images/plus.svg';
+import Card from './Card.js';
+import api from '../utils/api.js';
+import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
+import {CardsContext} from '../contexts/CardsContext.js';
 
 const Main = (props) => {
 

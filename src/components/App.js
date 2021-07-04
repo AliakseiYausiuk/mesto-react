@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import Header from './header/Header.js';
-import Main from './main/Main.js';
-import Footer from './footer/Footer.js';
-import PopupWithForm from './popupWithForm/PopupWithForm.js';
-import ImagePopup from '../components/imagePopup/ImagePopup.js';
-import api from '../utils/Api.js';
+import Header from './Header.js';
+import Main from './Main.js';
+import Footer from './Footer.js';
+import PopupWithForm from './PopupWithForm.js';
+import ImagePopup from './ImagePopup.js';
+import api from '../utils/api.js';
 import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 import {CardsContext} from '../contexts/CardsContext.js';
-import EditProfilePopup from '../components/editProfilePopup/EditProfilePopup.js';
+import EditProfilePopup from './EditProfilePopup.js';
 
 
 function App() {

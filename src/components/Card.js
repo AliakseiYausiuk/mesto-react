@@ -1,5 +1,5 @@
 import React, {useContext} from 'react'
-import {CardsContext} from '../../contexts/CardsContext.js';
+import {CardsContext} from '../contexts/CardsContext.js';
 
 const Card = (props) => {
 
