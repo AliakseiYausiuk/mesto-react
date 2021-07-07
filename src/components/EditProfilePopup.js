@@ -32,16 +32,14 @@ const EditProfilePopup = (props) => {
         });
     }
     
-    
-
 
     return (
-       <PopupWithForm title='Редактировать профиль' name='profile-popup' textBtn='Сохранить' isOpen={props.isOpen} onClose={props.onClose}>
-       <input id='nameInput' type="text" className="pop-up__text" value={name} onChange={handleChangeName} name="content-name" placeholder="Ваше имя" minLength="2" maxLength="40"  required/>
-       <span id="nameInput-error" className="pop-up__span-error"></span>
-       <input id='jobInput' type="text" className="pop-up__text" value={description} onChange={handleChangeDescription} name="content-job" placeholder="О себе" minLength="2" maxLength="200" required/>
-       <span id="jobInput-error" className="pop-up__span-error"></span>
-     </PopupWithForm>
+      <PopupWithForm title='Редактировать профиль' name='profile-popup' textBtn='Сохранить' isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleSubmit}>
+        <input id='nameInput' type="text" className="pop-up__text" value={name || ''} onChange={handleChangeName} name="content-name" placeholder="Ваше имя" minLength="2" maxLength="40"  required/>
+        <span id="nameInput-error" className="pop-up__span-error"></span>
+        <input id='jobInput' type="text" className="pop-up__text" value={description || ''} onChange={handleChangeDescription} name="content-job" placeholder="О себе" minLength="2" maxLength="200" required/>
+        <span id="jobInput-error" className="pop-up__span-error"></span>
+      </PopupWithForm>
     )
 }
 

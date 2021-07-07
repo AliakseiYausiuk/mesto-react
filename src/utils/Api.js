@@ -1,5 +1,4 @@
 
-
 class Api {
   constructor({baseUrl, headers}) {
     this._baseUrl = baseUrl;
@@ -33,8 +32,8 @@ class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: data['content-name'],
-        about: data['content-job']
+        name: data.name,
+        about: data.about
       })
     })
     .then(res => this._getResponseData(res))
@@ -45,8 +44,8 @@ class Api {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name: data['content-name-foto'],
-        link: data['content-foto']
+        name: data.name,
+        link: data.link
       })
     })
     .then(res => this._getResponseData(res))
@@ -65,7 +64,7 @@ class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: avatar['contentFotoAvatar']
+        avatar
       })
     })
     .then(res => this._getResponseData(res))
@@ -88,8 +87,11 @@ class Api {
     .then(res => this._getResponseData(res))
   }
 
-}
+  changeLikeCardStatus(id, bool) {
+    return bool ? this.decrementLike(id) : this.incrementLike(id);
+  }
 
+}
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-24',
@@ -98,5 +100,6 @@ const api = new Api({
     'Content-Type': 'application/json'
   }
 })
+
 
 export default api;
