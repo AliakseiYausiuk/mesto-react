@@ -4,7 +4,7 @@ import plus from '../images/plus.svg';
 import Card from './Card.js';
 import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 
-const Main = (props) => {
+const Main = ({cards, onCardLike, onCardDelete, onEditAvatar, onEditProfile, onAddPlace, onCardClick}) => {
 
   const currentUser = useContext(CurrentUserContext);
   
@@ -12,12 +12,12 @@ const Main = (props) => {
       <main className="main">
         <section className="profile">
         <div className="profile__avatar-hover">
-        <img className="profile__avatar" src={currentUser ? currentUser.avatar : ''} alt="Аватар" onClick={props.onEditAvatar}/>
+        <img className="profile__avatar" src={currentUser ? currentUser.avatar : ''} alt="Аватар" onClick={onEditAvatar}/>
         </div>
         <div className="profile__list">
           <h1 className="profile__info">{currentUser ? currentUser.name : 'Жак-Ив Кусто'}</h1>
           <div>
-            <button className="profile__edit-button" type="button" aria-label="btn-edit" onClick={props.onEditProfile}>
+            <button className="profile__edit-button" type="button" aria-label="btn-edit" onClick={onEditProfile}>
               <img src={vector} alt="Кнопка редактировать"/>
             </button>
           </div>
@@ -25,14 +25,13 @@ const Main = (props) => {
             <p className="profile__text">{currentUser ? currentUser.about : 'Исследователь океана'}</p>
           </div>
       </div>
-      <button className="profile__add-Button" type="button" aria-label="btn-add" onClick={props.onAddPlace}>
+      <button className="profile__add-Button" type="button" aria-label="btn-add" onClick={onAddPlace}>
         <img className="profile__add-Btn-img" src={plus} alt="Кнопка плюс"/>
       </button>
         </section>
       <section className="elements">
       <ul className="cards">
-        {props.cards.map(el => <Card key={el._id} card={el} onCardClick={props.onCardClick} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete}/>)}
-        {/* <Card onCardClick={props.onCardClick} currentUser={currentUser} onCardLike={handleCardLike} onCardDelete={handleCardDelete}/> */}
+        {cards.map(el => <Card key={el._id} card={el} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete}/>)}
       </ul>
       </section>
       </main>
