@@ -1,11 +1,10 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
 import ImagePopup from './ImagePopup.js';
 import api from '../utils/api.js';
 import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
-import {CardsContext} from '../contexts/CardsContext.js';
 import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js'
@@ -13,9 +12,8 @@ import AddPlacePopup from './AddPlacePopup.js'
 
 function App() {
 
-  const [currentUser, setCurrentUser] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
 
-  const data = useContext(CardsContext);
   const [cards, setCards] = useState([]);
 
 
@@ -33,20 +31,20 @@ function App() {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
     // Отправляем запрос в API и получаем обновлённые данные карточки
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
+    }).catch(err => console.log(err));
     
   } 
 
   const handleCardDelete = (card) => {
-    // const isOwn = card.owner._id === currentUser._id;
 
     api.deleteCard(card._id)
     .then(res => {
       const newCards = cards.filter((c) => c._id !== card._id);
       setCards(newCards);
-    });
+    })
+    .catch(err => console.log(err));
   }
 
 
@@ -55,11 +53,8 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 
 
-  // const [selectedCard, setSelectedCard] = useState({});
   const [selectedCard, setSelectedCard] = useState(null);
 
-
-  // const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
 
   // изменение сотояния при клике (открывает попап)
   const handleEditAvatarClick = () => {
@@ -83,8 +78,6 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
 
-
-    // setSelectedCard(false);
     setSelectedCard(null);
   }
   
@@ -95,9 +88,10 @@ function App() {
   const handleUpdateUser = (data) => {
     api.userEdit(data)
     .then(res => {
-      setCurrentUser(data);
+      setCurrentUser(res);
       closeAllPopups();
     })
+    .catch(err => console.log(err))
   }
 
   const handleUpdateAvatar = (data) => {
@@ -106,6 +100,7 @@ function App() {
       setCurrentUser(res);
       closeAllPopups();
     })
+    .catch(err => console.log(err))
   }
   
   const handleAddPlaceSubmit = (newCard) => {
@@ -114,13 +109,12 @@ function App() {
       setCards([res, ...cards]); 
       closeAllPopups();
     })
+    .catch(err => console.log(err))
   }
-  
   
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-     <CardsContext.Provider value={data}>
      <Header/>
      <Main cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete} onEditAvatar={handleEditAvatarClick} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onCardClick={handleCardClick} />
      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
@@ -128,9 +122,6 @@ function App() {
      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
      <ImagePopup card={selectedCard} onClose={closeAllPopups}></ImagePopup>
      <Footer/>
-
-     {/* <PopupWithForm title='Вы уверены?' name='pop-up-delete-foto' textBtn='Да' isOpen={isDeleteCardPopupOpen}/> */}
-     </CardsContext.Provider>
     </CurrentUserContext.Provider>
   );
 }
