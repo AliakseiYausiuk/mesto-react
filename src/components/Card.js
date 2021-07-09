@@ -4,7 +4,6 @@ import {CurrentUserContext} from '../contexts/CurrentUserContext.js';
 const Card = ({card, onCardClick, onCardLike, onCardDelete}) => {
 
     const currentUser = useContext(CurrentUserContext);
-    // console.log(currentUser);
 
     function handleClick(card) {
         onCardClick(card);
@@ -22,19 +21,18 @@ const Card = ({card, onCardClick, onCardLike, onCardDelete}) => {
     const isOwn = card.owner._id === currentUser._id;
 
     // Создаём переменную, которую после зададим в `className` для кнопки удаления
-    const cardDeleteButtonClassName = isOwn ? 'cards__btn-delete' : 'cards__btn-delete_active'; 
-    // const cardDeleteButtonClassName = ''; 
+    const cardDeleteButtonClassName = isOwn ? 'cards__btn-delete' : ''; 
 
     // Определяем, есть ли у карточки лайк, поставленный текущим пользователем
     const isLiked = card.likes.some(i => i._id === currentUser._id);
 
     // Создаём переменную, которую после зададим в `className` для кнопки лайка
-    const cardLikeButtonClassName =  isLiked ? 'cards__like_active' : 'cards__like';
+    const cardLikeButtonClassName =  isLiked ? 'cards__like cards__like_active' : 'cards__like';
     
 
     return (
         <li id={card._id} className="cards__card">
-            <button className={cardDeleteButtonClassName} type="button" aria-label="btn-delete" onClick={() => handleDeleteClick(card)}></button>
+            {isOwn && <button className={cardDeleteButtonClassName} type="button" aria-label="btn-delete" onClick={() => handleDeleteClick(card)}></button>}
             <figure className="cards__list">
             <img className="cards__foto" src={card.link} alt={card.name} onClick={() => handleClick(card)}/>
             <figcaption className="cards__text">
