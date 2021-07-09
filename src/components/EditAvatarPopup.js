@@ -16,7 +16,6 @@ const EditAvatarPopup = ({isOpen, onClose, onUpdateAvatar}) => {
     return (
       <PopupWithForm title='Обновить аватар' name='pop-up-upgred-avatar' textBtn='Да' isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit}>
         <input id="linkFotoAvatar" type="url" className="pop-up__text" ref={avatar} name="contentFotoAvatar" placeholder='Ссылка на картинку' required/>
-        {/* <input id="linkFotoAvatar" type="url" className="pop-up__text" ref={avatar} value={value || ''} onChange={handleChange} name="contentFotoAvatar" placeholder='Ссылка на картинку' required/> */}
         <span id="linkFotoAvatar-error" className="pop-up__span-error"></span>
       </PopupWithForm>
     )
