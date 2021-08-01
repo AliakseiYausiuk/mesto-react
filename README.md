@@ -13,3 +13,4 @@
 5. Context
 6. БЭМ
 
+[Ссылка на проект](https://aliakseiyausiuk.github.io/mesto-react/)
